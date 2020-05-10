@@ -83,8 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
       }
       if (snakePosition.last == food) {
         generateNewFood();
+      } else {
+        snakePosition.removeAt(0);
       }
-      snakePosition.removeAt(0);
     });
   }
 
@@ -164,14 +165,25 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       );
+                    }
+                    if (index == food) {
+                      return Container(
+                        padding: const EdgeInsets.all(2.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Container(
+                            color: Colors.green,
+                          ),
+                        ),
+                      );
                     } else {
-                      return Center(
+                      return Container(
                         child: Padding(
                           padding: const EdgeInsets.all(2.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: Container(
-                              color: Colors.white.withOpacity(0.1),
+                              color: Colors.grey[900],
                             ),
                           ),
                         ),
