@@ -28,6 +28,12 @@ class _MyHomePageState extends State<MyHomePage> {
   static List<int> snakePosition = [45, 65, 85, 105, 125];
   int numberOfSquares = 760;
 
+  static var randomNumber = Random();
+  int food = randomNumber.nextInt(700);
+  void generateNewFood() {
+    food = randomNumber.nextInt(700);
+  }
+
   void startGame() {
     snakePosition = [45, 65, 85, 105, 125];
     const duration = const Duration(milliseconds: 300);
@@ -70,6 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
           break;
 
         default:
+      }
+      if (snakePosition.last == food) {
+        generateNewFood();
       }
       snakePosition.removeAt(0);
     });
