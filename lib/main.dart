@@ -117,6 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   startGame();
                   Navigator.of(context).pop();
+                  direction = 'down';
                 },
               ),
             ],
