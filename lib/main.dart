@@ -39,6 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
     const duration = const Duration(milliseconds: 300);
     Timer.periodic(duration, (Timer timer) {
       updateSnake();
+      if (gameOver()) {
+        timer.cancel();
+        _showGameOverScreen();
+      }
     });
   }
 
@@ -82,6 +86,41 @@ class _MyHomePageState extends State<MyHomePage> {
       }
       snakePosition.removeAt(0);
     });
+  }
+
+  bool gameOver() {
+    for (int i = 0; i < snakePosition.length; i++) {
+      int count = 0;
+      for (int j = 0; j < snakePosition.length; j++) {
+        if (snakePosition[i] == snakePosition[j]) {
+          count += 1;
+        }
+        if (count == 2) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  void _showGameOverScreen() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('GAME OVER'),
+            content: Text('You\'re score: ' + snakePosition.length.toString()),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Play Again?'),
+                onPressed: () {
+                  startGame();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
